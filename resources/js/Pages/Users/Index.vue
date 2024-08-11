@@ -1,7 +1,6 @@
 <template>
-    <Head>
-        <title>My App - Users</title>
-    </Head>
+        <Head title="Users" />
+
     <div class="flex justify-between">
         <h2 class="px-4 py-2 font-extrabold text-3xl">Users</h2>
         <input
@@ -42,9 +41,9 @@
 </template>
 
 <script setup>
-import { Head, router } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
-import Pagination from "../Shared/Pagination.vue";
+import Pagination from "../../Shared/Pagination.vue";
 
 const props = defineProps({
     users: Object,

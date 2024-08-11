@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,7 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/users', function () {
-    return inertia('Users', [
+    return inertia('Users/Index', [
         'users' => User::query()
             ->when(Request::input('search'), function ($query, $search) {
                 $query->where('name', 'LIKE', "%{$search}%");
@@ -25,8 +26,23 @@ Route::get('/users', function () {
     ]);
 })->name('students.index');
 
-Route::get('/settings', function () {
-    return inertia('Settings');
+Route::get('/users/create', function () {
+    return inertia('Users/Create');
+});
+
+Route::post('/users', function () {
+    //* validate the request
+    $attributes = Request::validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+    //* create the user
+
+    User::create($attributes);
+    
+    //* redirect
+    return redirect('/users');
 });
 
 Route::post('/logout', function () {
