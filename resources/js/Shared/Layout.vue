@@ -1,6 +1,6 @@
 <template>
     <header class="bg-sky-800 px-8 py-1 flex items-center justify-between">
-        <div class="flex items-center">
+        <div class="flex items-center text-white">
             <h1 class="text-2xl font-bold">My App</h1>
             <p class="text-sm ml-4">Welcome back, {{ $page.props.auth.user.username }}!</p>
         </div>

@@ -1,6 +1,6 @@
 <template>
     <nav class="p-4">
-        <ul class=" flex items-center gap-2">
+        <ul class=" flex items-center gap-6 text-gray-300">
             <li>
                 <NavLink href="/" :active="$page.component === 'Home'">
                     Home
