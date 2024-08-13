@@ -1,14 +1,19 @@
 <template>
-        <Head title="Users" />
+    <Head title="Users" />
 
-    <div class="flex justify-between">
+    <div class="flex justify-between items-center">
         <h2 class="px-4 py-2 font-extrabold text-3xl">Users</h2>
         <input
             type="text"
-            class="border px-1 rounded-lg min-w-96"
+            class="border px-1 py-2 rounded-lg min-w-96"
             placeholder="search..."
             v-model="search"
         />
+        <Link
+            href="/users/create"
+            class="px-2 py-1 bg-blue-500 text-white font-bold text-sm rounded-lg"
+            >Create user +</Link
+        >
     </div>
 
     <ul class="divide-y divide-gray-100">
@@ -43,6 +48,8 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
+import throttle from "lodash/throttle";
+
 import Pagination from "../../Shared/Pagination.vue";
 
 const props = defineProps({
@@ -53,15 +60,20 @@ const props = defineProps({
 const search = ref(props.filters.search),
     pageNumber = ref(1);
 
-watch(search, (value) => {
-    router.visit("users", {
-        data: {
-            search: value,
-            page: pageNumber.value,
-        },
-        preserveState: true,
-        preserveScroll: true,
-        replace: true
-    });
-});
+watch(
+    search,
+    throttle(function (value) {
+        console.log('triggered');
+
+        router.visit("users", {
+            data: {
+                search: value,
+                page: pageNumber.value,
+            },
+            preserveState: true,
+            preserveScroll: true,
+            replace: true,
+        });
+    }, 500)
+);
 </script>
