@@ -8,7 +8,8 @@ createInertiaApp({
 
     const page = pages[`./Pages/${name}.vue`]
 
-    page.default.layout ??= Layout
+    if (page.default.layout === undefined)
+      page.default.layout ??= Layout
 
     return pages[`./Pages/${name}.vue`]
   },
